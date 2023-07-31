@@ -21,9 +21,9 @@ describe('Register Use Case', () => {
 
   it('Should hash user password upon registration', async () => {
     const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
+    const sut = new RegisterUseCase(usersRepository)
 
-    const { user } = await registerUseCase.execute({
+    const { user } = await sut.execute({
       name: 'John Doe',
       email: 'johnDoe@example.com',
       password: '123123',
@@ -37,18 +37,18 @@ describe('Register Use Case', () => {
 
   it('Should not de able to register with same email twice', async () => {
     const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
+    const sut = new RegisterUseCase(usersRepository)
 
     const email = 'johnDoe@example.com'
 
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'John Doe',
       email,
       password: '123123',
     })
 
     await expect(() =>
-      registerUseCase.execute({
+      sut.execute({
         name: 'John Doe',
         email,
         password: '123123',
