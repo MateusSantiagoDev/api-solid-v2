@@ -30,9 +30,7 @@ export class CheckInUseCase {
     userLongitude,
   }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
     // se a academia não existir retorna um erro
-    console.log('1', gymId)
     const gyn = await this.gymsRepository.findById(gymId)
-    console.log('2', gyn)
     if (!gyn) {
       throw new ResourceNotFoundError()
     }
